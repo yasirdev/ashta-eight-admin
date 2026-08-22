@@ -1,0 +1,162 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  /* Brand typefaces: Cinzel (display serif) for headings, Montserrat for body —
+     the pairing the brand site ships. Was `--font-sans: var(--font-sans)`, a
+     self-reference that resolved to nothing and silently fell back. */
+  --font-sans: var(--font-montserrat);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-cinzel);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Ashta Eight brand palette — ported verbatim from the brand site
+   (somatic-zenith-architect.lovable.app), which uses this same shadcn/oklch
+   token architecture, so admin and marketing stay in sync by construction.
+   Brand primitives are the source of truth; edit these, not the roles below.
+   ───────────────────────────────────────────────────────────────────────────── */
+:root {
+  --midnight: oklch(24.6% 0.052 273); /* #191e39 — brand navy (meta theme-color) */
+  --midnight-deep: oklch(18.5% 0.045 273);
+  --gold: oklch(75.5% 0.115 82);
+  --gold-soft: oklch(88% 0.075 85);
+  --alabaster: oklch(97.8% 0.008 85);
+  --olive: oklch(32% 0.045 70);
+  --teal: oklch(54.5% 0.09 190);
+
+  --background: var(--alabaster);
+  --foreground: var(--midnight);
+  --card: oklch(100% 0 0);
+  --card-foreground: var(--midnight);
+  --popover: oklch(100% 0 0);
+  --popover-foreground: var(--midnight);
+  --primary: var(--midnight);
+  --primary-foreground: var(--alabaster);
+  --secondary: oklch(94.5% 0.012 85);
+  --secondary-foreground: var(--midnight);
+  --muted: oklch(94.5% 0.012 85);
+  --muted-foreground: oklch(45% 0.02 273);
+  --accent: var(--gold);
+  --accent-foreground: var(--midnight);
+  --destructive: oklch(55% 0.19 27);
+  --border: oklch(90% 0.012 85);
+  --input: oklch(90% 0.012 85);
+  /* The brand site defines no --ring. Midnight (not gold) on alabaster: gold is
+     only 2.06:1 here, too weak for a focus indicator to be seen. */
+  --ring: var(--midnight);
+
+  /* Chart marks are NOT the raw brand hues. Brand gold on alabaster is 2.06:1 —
+     under the 3:1 a data mark needs — and brand teal's chroma reads gray. These
+     keep the brand hues (82 gold, 190 teal) snapped to steps that pass the
+     dataviz checks: lightness band, chroma floor, CVD separation, contrast.
+     Verified with the validator in both modes; see ADMIN_PROGRESS_LOG. */
+  --chart-1: oklch(0.62 0.13 82); /* #ad7d00 gold  — revenue, new subs */
+  --chart-2: oklch(0.6 0.14 190); /* #009993 teal  — churned subs */
+  --chart-3: oklch(0.52 0.06 70); /* olive         — reserved, R2 */
+  --chart-4: oklch(0.5 0.05 273); /* midnight-lift — reserved, R2 */
+  --chart-5: oklch(0.7 0.09 85); /* gold-soft     — reserved, R2 */
+
+  --radius: 0.5rem; /* brand site value */
+
+  /* Sidebar wears the brand navy in both modes — it is the admin's masthead. */
+  --sidebar: var(--midnight);
+  --sidebar-foreground: var(--alabaster);
+  --sidebar-primary: var(--gold);
+  --sidebar-primary-foreground: var(--midnight);
+  --sidebar-accent: oklch(30% 0.05 273);
+  --sidebar-accent-foreground: var(--alabaster);
+  --sidebar-border: oklch(100% 0 0 / 12%);
+  --sidebar-ring: var(--gold);
+}
+
+.dark {
+  --background: var(--midnight-deep);
+  --foreground: var(--alabaster);
+  --card: var(--midnight);
+  --card-foreground: var(--alabaster);
+  --popover: var(--midnight);
+  --popover-foreground: var(--alabaster);
+  --primary: var(--gold);
+  --primary-foreground: var(--midnight);
+  --secondary: oklch(28% 0.04 273);
+  --secondary-foreground: var(--alabaster);
+  --muted: oklch(28% 0.04 273);
+  --muted-foreground: oklch(72% 0.02 85);
+  --accent: var(--gold);
+  --accent-foreground: var(--midnight);
+  --destructive: oklch(70.4% 0.191 22.216);
+  --border: oklch(100% 0 0 / 10%);
+  --input: oklch(100% 0 0 / 15%);
+  --ring: var(--gold);
+
+  /* Dark steps are re-derived against the midnight-deep surface, not flipped —
+     the dark band is [0.48, 0.67], so brand gold at L .755 is out of band. */
+  --chart-1: oklch(0.645 0.13 82); /* #b5840d */
+  --chart-2: oklch(0.635 0.13 190); /* #00a39c */
+  --chart-3: oklch(0.6 0.06 70);
+  --chart-4: oklch(0.62 0.05 273);
+  --chart-5: oklch(0.66 0.09 85);
+
+  --sidebar: var(--midnight);
+  --sidebar-foreground: var(--alabaster);
+  --sidebar-primary: var(--gold);
+  --sidebar-primary-foreground: var(--midnight);
+  --sidebar-accent: oklch(30% 0.05 273);
+  --sidebar-accent-foreground: var(--alabaster);
+  --sidebar-border: oklch(100% 0 0 / 12%);
+  --sidebar-ring: var(--gold);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
